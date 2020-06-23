@@ -2,19 +2,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class BisectionMethod():
-    def __init__(self, f, a, precision, result = []):
+    def __init__(self, f, a, precision, outcome = []):
         self.f = f
         self.a = a
         self.precision = precision
-        self.result = result
+        self.outcome = outcome
 
     def calculation(self):
         while True:
             p = (self.a[0] + self.a[1]) / 2
-            self.result.append([p, self.f(p)])
+            self.outcome.append([p, self.f(p)])
 
             if abs(self.f(p)) <= self.precision:
-                return self.result[-1][0]
+                return self.outcome[-1][0]
                 break
 
             else:
@@ -23,8 +23,8 @@ class BisectionMethod():
                 else:
                     self.a[0] = p
 
-    def outcome(self):
-        return self.result
+    def result(self):
+        return self.outcome
 
     def graphic(self):
         x = np.arange(self.a[0], self.a[1], 1)
@@ -39,4 +39,4 @@ def function(x):
 test = BisectionMethod(function, [0,11], 0.01)
 test.graphic()
 print(test.calculation())
-print(test.outcome())
+print(test.result())
