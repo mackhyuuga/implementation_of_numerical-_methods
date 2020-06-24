@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt 
 import numpy as np
+import sqlite3
 
 class BisectionMethod():
     def __init__(self, f, a, precision, outcome = []):
@@ -28,6 +29,14 @@ class BisectionMethod():
     def result(self):
         return self.outcome
 
+    def record(self):
+        banco = sqlite3.connect('bisection_method.db')
+        cursor = banco.cursor()
+        cursor.execute("CREATE TABLE result (x REAL, 'f(x)' REAL)")
+        for i in self.outcome:
+            cursor.execute(f"INSERT INTO result VALUES({i[1]}, {i[2]})")
+        banco.commit()
+
     def graphic(self):
         x = np.arange(self.a[0], self.a[1], 1)
         plt.axis([self.a[0], self.a[1], self.f(self.a[0]), self.f(self.a[1])])
@@ -39,6 +48,5 @@ def function(x):
     return x**2 - 25*x + 100
 
 test = BisectionMethod(function, [0,11], 0.01)
-test.graphic()
 print(test.calculation())
 print(test.result())
