@@ -9,12 +9,14 @@ class BisectionMethod():
         self.outcome = outcome
 
     def calculation(self):
+        n = 0
         while True:
             p = (self.a[0] + self.a[1]) / 2
-            self.outcome.append([p, self.f(p)])
+            n += 1
+            self.outcome.append([n, p, self.f(p)])
 
             if abs(self.f(p)) <= self.precision:
-                return self.outcome[-1][0]
+                return self.outcome[-1][1]
                 break
 
             else:
